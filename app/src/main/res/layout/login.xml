@@ -14,9 +14,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2"
-        android:id="@+id/logo"
-        android:src="@drawable/dashboard_logo"
+        android:layout_weight="1.5"
+        android:src="@drawable/logo"
         />
     <Space
         android:layout_width="match_parent"
@@ -45,6 +44,8 @@
         android:textColor="#000"/>
 
     <EditText
+        android:padding="5dp"
+        android:background="@drawable/bounding_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Email"
@@ -72,6 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="********"
+        android:padding="5dp"
+        android:background="@drawable/bounding_box"
         android:fontFamily="@font/alef"
         android:id="@+id/password"
         android:drawableLeft="@drawable/password_logo"

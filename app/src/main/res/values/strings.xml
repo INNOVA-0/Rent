@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Rent</string>
+    <string name="admin">ایڈمن</string>
+    <string name="monthlyRent">نومبر موصول</string>
+    <string name="monthlyRemaining">نومبر بقایا جات</string>
+    <string name="totalRent">کل موصول</string>
+    <string name="totalRemaining">کل بقایا جات</string>
+    <string name="tenant">کرایہ دار</string>
+    <string name="record">کھاتہ</string>
+    <string name="rent">کرایہ</string>
+    <string name="expenditure">اخراجات</string>
+    <string name="date">تاریخ</string>
+    <string name="logout">لاگ آوٹ</string>
 </resources>

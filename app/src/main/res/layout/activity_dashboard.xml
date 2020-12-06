@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashboard"
+    android:orientation="vertical"
+    android:weightSum="7"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="1">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:textColor="#707070"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:text="@string/admin"/>
+
+        <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+         android:src="@drawable/person"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
+
+<!--  edit text - summary of rent  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.3"
+        android:weightSum="4.2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="1"
+            android:gravity="right"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:id="@+id/mRemaining"
+                android:text="@string/monthlyRemaining"
+                android:textColor="#F60A20"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:gravity="right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:id="@+id/mRent"
+                android:text="@string/monthlyRent"
+                android:textColor="#45BF55"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="1"
+            android:gravity="right"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:id="@+id/mAmount"
+                android:text="456952"
+                android:textColor="#F60A20"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:gravity="right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:id="@+id/tAmount"
+                android:text="1456900"
+                android:textColor="#45BF55"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="1"
+            android:gravity="right"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:id="@+id/tRemaining"
+                android:text="@string/totalRemaining"
+                android:textColor="#F60A20"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:gravity="right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:id="@+id/tRent"
+                android:text="@string/totalRent"
+                android:textColor="#45BF55"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="1"
+            android:gravity="right"
+            android:paddingRight="5dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:gravity="right"
+                android:id="@+id/taRemaining"
+                android:text="6594895"
+                android:textColor="#F60A20"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:gravity="right"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
+                android:id="@+id/taRent"
+                android:text="658898870"
+                android:textColor="#45BF55"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+<!--  For Function Blocks  -->
+<LinearLayout
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:weightSum="1"
+    android:gravity="center">
+ <ImageButton
+     android:layout_width="0dp"
+     android:layout_height="match_parent"
+     android:layout_weight="0.4"
+     android:src="@drawable/ic_plus"
+     android:background="@drawable/block_red"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1"/>
+    <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:background="@drawable/block_blue"
+        android:src="@drawable/ic_plus"/>
+
+</LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.3"
+    android:weightSum="1"
+    android:gravity="center">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:text="@string/record"
+        android:gravity="center"
+        android:textColor="#707070"
+        android:textSize="20sp"/>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.18"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:text="@string/tenant"
+        android:gravity="center"
+        android:textColor="#707070"
+        android:textSize="20sp"/>
+</LinearLayout>
+    <LinearLayout
+        android:padding="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="1"
+        android:gravity="center">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:background="@drawable/block_blue"
+            android:src="@drawable/ic_plus"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:background="@drawable/block_green"
+            android:src="@drawable/ic_plus"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:weightSum="1"
+        android:gravity="center">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:text="@string/expenditure"
+            android:gravity="center"
+            android:textColor="#707070"
+            android:textSize="20sp"/>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.18"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:text="@string/rent"
+            android:gravity="center"
+            android:textColor="#707070"
+            android:textSize="20sp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginRight="18dp"
+        android:paddingTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:weightSum="1"
+        android:gravity="right">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:background="@drawable/block_blue"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:text="@string/date"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:textColor="#707070"
+        android:textSize="20sp"
+        android:layout_marginRight="55dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textStyle="bold"
+        android:id="@+id/logout"
+        android:background="@drawable/round_views"
+        android:textColor="#FFF"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+</LinearLayout>
