@@ -11,4 +11,30 @@
     <string name="expenditure">اخراجات</string>
     <string name="date">تاریخ</string>
     <string name="logout">لاگ آوٹ</string>
+    <string name="selectID">منتخب کریں ID</string>
+    <string name="block">بلاک</string>
+    <string name="selectTenantName">کرایہ دار کا نام درج کریں</string>
+    <string name="enterAmount">بل کی رقم درج کریں</string>
+    <string name="advance">پیشگی</string>
+    <string name="enterAdvance">بل کی رقم درج کریں</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="name">نام</string>
+    <string name="rentAmount">کھاتہ رقم</string>
+    <string name="enterRent">کھاتہ کی رقم درج کریں</string>
+    <string name="description">تفصیل</string>
+    <string name="amountRent">کرایہ کی رقم</string>
+    <string name="remaining">بقایا جات</string>
+    <string name="amountRecieved">موصولہ رقم</string>
+    <string name="selectamountRecieved">موصولہ رقم درج کریں</string>
+    <string name="monthlyExpenditure">اس مہینے کے اخراجات</string>
+    <string name="completeExpenditure">مکمل خرچہ</string>
+    <string name="spent">خرچہ</string>
+    <string name="amountSpent">اخراجات کی رقم</string>
+    <string name="typeSpent">اخراجات کی قسم</string>
+    <string name="selectetypeSpent">اخراجات کی قسم</string>
+
+
+
+
+
 </resources>
