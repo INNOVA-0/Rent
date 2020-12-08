@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Rent</string>
     <string name="admin">ایڈمن</string>
+    <string name="manager">مینیجر</string>
     <string name="monthlyRent">نومبر موصول</string>
     <string name="monthlyRemaining">نومبر بقایا جات</string>
     <string name="totalRent">کل موصول</string>
@@ -32,9 +33,6 @@
     <string name="amountSpent">اخراجات کی رقم</string>
     <string name="typeSpent">اخراجات کی قسم</string>
     <string name="selectetypeSpent">اخراجات کی قسم</string>
-
-
-
 
 
 </resources>

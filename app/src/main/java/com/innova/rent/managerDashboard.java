@@ -9,25 +9,26 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class dashboard extends AppCompatActivity implements View.OnClickListener {
+public class managerDashboard extends AppCompatActivity  implements View.OnClickListener {
 
-    ImageButton tenant, record, rent, expenses, history;
+    ImageButton record, rent, expenses, history;
     private Button logout;
+
+    static boolean isManager=false; // distinguish between logged in user roles
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_manager_dashboard);
 
-        //Initializing UI components;
-        tenant = findViewById(R.id.admin_tenant);
-        record = findViewById(R.id.admin_record);
-        rent = findViewById(R.id.admin_rent);
-        expenses = findViewById(R.id.admin_expenses);
-        history = findViewById(R.id.admin_history);
-        logout = findViewById(R.id.admin_logout);
+        // inflating UI-Components
+        record = findViewById(R.id.mangerRecord);
+        rent = findViewById(R.id.managerRent);
+        expenses = findViewById(R.id.managerExpenses);
+        history = findViewById(R.id.managerHistory);
+        logout = findViewById(R.id.managerLogout);
 
-        tenant.setOnClickListener(this);
+
         record.setOnClickListener(this);
         rent.setOnClickListener(this);
         expenses.setOnClickListener(this);
@@ -35,42 +36,44 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
         logout.setOnClickListener(this);
     }
 
-    // onClick Listeners
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.admin_tenant:
-                Intent tenatIntent = new Intent(getApplicationContext(), tenant.class);
-                tenatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(tenatIntent);
-                break;
 
-            case R.id.admin_record:
-                Intent recordIntent = new Intent(getApplicationContext(), record.class);
-                recordIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // layout of manager will be different from admin -- instead of creating multiple activities, changing UI components directly
+
+        switch (view.getId()) {
+
+            case R.id.mangerRecord:
+                isManager=true;
+                Intent recordIntent = new Intent(this, record.class);
+                //recordIntent.putExtra("Role", true);
+                //recordIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(recordIntent);
                 break;
 
-            case R.id.admin_rent:
+            case R.id.managerRent:
+                isManager=true;
                 Intent rentIntent = new Intent(getApplicationContext(), rent.class);
                 rentIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(rentIntent);
                 break;
 
-            case R.id.admin_expenses:
+            case R.id.managerExpenses:
+                isManager=true;
                 Intent expensesIntent = new Intent(getApplicationContext(), expenditure.class);
                 expensesIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(expensesIntent);
                 break;
 
-            case R.id.admin_history:
+            case R.id.managerHistory:
+                isManager=true;
 //                Intent historyIntent = new Intent(getApplicationContext(), history.class);
 //                historyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //                startActivity(historyIntent);
                 Toast.makeText(this, "History Layout will be inflated", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.admin_logout:
+            case R.id.managerLogout:
                 Intent logoutIntent = new Intent(getApplicationContext(), MainActivity.class);
                 logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(logoutIntent);
@@ -80,6 +83,5 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
             default:
                 break;
         }
-
     }
 }
