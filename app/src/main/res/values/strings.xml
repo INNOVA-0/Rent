@@ -33,6 +33,7 @@
     <string name="amountSpent">اخراجات کی رقم</string>
     <string name="typeSpent">اخراجات کی قسم</string>
     <string name="selectetypeSpent">اخراجات کی قسم</string>
+    <string name="login">لاگ ان کریں</string>
 
 
 </resources>
