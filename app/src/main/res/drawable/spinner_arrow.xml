@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <layer-list>
-            <item android:drawable="@drawable/ic_spinner_down_arrow" android:gravity="center_vertical|left" android:left="5dp"/>
+            <item android:drawable="@drawable/ic_spinner_down_arrow" android:gravity="center_vertical|left" android:left="16dp"/>
             <item android:drawable="@drawable/bounding_box" android:gravity="center_vertical|left" />
         </layer-list>
 

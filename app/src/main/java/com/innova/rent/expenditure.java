@@ -21,12 +21,13 @@ public class expenditure extends AppCompatActivity {
     SQLiteDatabase db;
 
     private ImageView avatar;
-    private TextView role,monthly_expense;
+    private TextView role,monthly_expense, total_Expense;
     private EditText expenseAmount, expenseType, expenseDescription;
     private Button expenseSave;
     private managerDashboard manager;
     private static boolean adminIntent=true;  // required to decide wether to go back to admin or manager dashboard
     private int monthlyExpenses;
+    private int totalExpenses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class expenditure extends AppCompatActivity {
         expenseDescription = findViewById(R.id.expenseDescription);
         expenseSave= findViewById(R.id.expenseSave);
         monthly_expense = findViewById(R.id.monthlyExpense);
+        total_Expense = findViewById(R.id.total_expense);
 
         updateUI();
 
@@ -52,6 +54,11 @@ public class expenditure extends AppCompatActivity {
         monthlyExpenses= helper.getCurrentMonthExpenses(db);
         String value = String.valueOf(monthlyExpenses);
         monthly_expense.setText(value);
+
+        totalExpenses = helper.getExpenses(db);
+        String totalValue = String.valueOf(totalExpenses);
+        total_Expense.setText(totalValue);
+
 
 
 
