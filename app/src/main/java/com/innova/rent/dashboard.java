@@ -119,8 +119,8 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
         mRecieved.setText(m_recieved);
 
         // geting mothly remaining rent -- all the time
-        int mRemaining= helper.getMonthlyRecievedRent(db);
-        String m_remaining = String.valueOf(monthlyRecieved);
-        mRecieved.setText(m_remaining);
+        int m_Remaining= helper.monthlyRemaining(db);
+        String m_remaining = String.valueOf(m_Remaining);
+        mRemaining.setText(m_remaining);
     }
 }

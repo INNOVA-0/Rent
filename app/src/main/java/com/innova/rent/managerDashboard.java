@@ -3,16 +3,19 @@ package com.innova.rent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class managerDashboard extends AppCompatActivity  implements View.OnClickListener {
 
     ImageButton record, rent, expenses, history;
     private Button logout;
+    TextView mRentPaid, mRentRemaining;
 
     static boolean isManager=false; // distinguish between logged in user roles
 
@@ -28,12 +31,17 @@ public class managerDashboard extends AppCompatActivity  implements View.OnClick
         history = findViewById(R.id.managerHistory);
         logout = findViewById(R.id.managerLogout);
 
+        mRentPaid= findViewById(R.id.monthlyRentRecieved);
+        mRentRemaining = findViewById(R.id.monthlyRentRemaining);
+
 
         record.setOnClickListener(this);
         rent.setOnClickListener(this);
         expenses.setOnClickListener(this);
         history.setOnClickListener(this);
         logout.setOnClickListener(this);
+
+        setStats();
     }
 
     @Override
@@ -83,5 +91,24 @@ public class managerDashboard extends AppCompatActivity  implements View.OnClick
             default:
                 break;
         }
+    }
+
+    public void setStats()
+    {
+        Helper helper;
+        SQLiteDatabase db;
+        // Database Configuration
+        helper= new Helper(this);
+        db = helper.getWritableDatabase();
+
+        // geting mpnthly rent recieved -- all the time
+        int monthlyRecieved= helper.getMonthlyRecievedRent(db);
+        String m_recieved = String.valueOf(monthlyRecieved);
+        mRentPaid.setText(m_recieved);
+
+        // geting mothly remaining rent -- all the time
+        int m_Remaining= helper.monthlyRemaining(db);
+        String m_remaining = String.valueOf(m_Remaining);
+        mRentRemaining.setText(m_remaining);
     }
 }

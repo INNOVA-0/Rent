@@ -312,13 +312,9 @@ public class Helper extends SQLiteOpenHelper {
     public int totalRemainingRent(SQLiteDatabase database)
     {
         int totalRamianing =0, idCounter=0, blockCounter =0;
-        int ID[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-        String BLOCK[] = {"A", "B", "C","D", "E", "F","G", "H", "I", "J"};
 
         int idArr[]= new int[20];
         String blockArr[]= new String[10];
-
-        String terms[]= new String[200];  // 200 possible combinations of ID and BLOCK
 
         Cursor res = database.rawQuery( "SELECT ID,BLOCK FROM TENANT WHERE ID>0",null);
 
@@ -443,5 +439,51 @@ public class Helper extends SQLiteOpenHelper {
         amount = rent_recieved+ advance_recieved;
         Log.e("monthly_recieved", String.valueOf(amount));
         return amount;
+    }
+
+    public int monthlyRemaining(SQLiteDatabase database)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        String month = dateFormat.format(date);
+
+        int totalRamianing =0, idCounter=0, blockCounter =0;
+
+        int idArr[]= new int[20];
+        String blockArr[]= new String[10];
+
+        Cursor res = database.rawQuery( "SELECT ID,BLOCK FROM TENANT WHERE ID>0 AND DATE = ?", new String[] { month },null);
+
+        if(res== null)
+            return totalRamianing;
+
+        if (res.moveToFirst()){
+            do{
+                String id = res.getString(res.getColumnIndex("ID"));  // getting all ids of tenats -- in database
+                idArr[idCounter]= Integer.parseInt(id);
+                idCounter++;
+
+                String block = res.getString(res.getColumnIndex("BLOCK"));
+                blockArr[blockCounter]= block;
+                blockCounter++;
+                Log.e("cursor_R", id+ block + blockCounter);
+                // do what ever you want here
+            }while(res.moveToNext());
+        }
+        res.close();
+
+        int iCounter=0;
+        int bCounter=0;
+
+        while(iCounter<idCounter)
+        {
+            totalRamianing += remaining(idArr[iCounter],blockArr[bCounter],database);
+            Log.e("m_remaining", String.valueOf(totalRamianing));
+            iCounter++;
+            bCounter++;
+        }
+
+        Log.e("m_remaining", String.valueOf(totalRamianing));
+        return totalRamianing;
     }
 }
