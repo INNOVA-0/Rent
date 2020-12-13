@@ -264,4 +264,184 @@ public class Helper extends SQLiteOpenHelper {
         Log.e("rent_remaining", String.valueOf(remainingRent));
         return  remainingRent;
     }
+
+    public int getTotalRecievedRent(SQLiteDatabase database)
+    {
+        int amount = 0;
+        // geting rent recieved
+        Cursor res = database.rawQuery( "SELECT SUM(RENTRECIEVED) FROM RENT",null);
+        int rent_recieved=0;
+        if (res == null)
+        {
+            rent_recieved=0;
+        }
+        else {
+            try{
+                if (res.moveToFirst()) // Here i try to move to the first record -- in this case only record
+                    res.moveToFirst();
+                rent_recieved = Integer.parseInt(res.getString(0)); // Only assign string value if we moved to first record
+                Log.e("r_recieved", String.valueOf(rent_recieved));
+            }finally {
+                res.close();
+            }
+        }
+
+        // geting advance recieved
+        Cursor advanceQuery = database.rawQuery( "SELECT SUM(ADVANCE) FROM TENANT",null);
+        int advance_recieved=0;
+        if (advanceQuery == null)
+        {
+            advance_recieved=0;
+        }
+        else {
+            try{
+                if (advanceQuery.moveToFirst()) // Here i try to move to the first record -- in this case only record
+                    advanceQuery.moveToFirst();
+                advance_recieved = Integer.parseInt(advanceQuery.getString(0)); // Only assign string value if we moved to first record
+                Log.e("a_recieved", String.valueOf(advance_recieved));
+            }finally {
+                res.close();
+            }
+        }
+
+        amount = rent_recieved+ advance_recieved;
+        Log.e("total_recieved", String.valueOf(amount));
+        return amount;
+    }
+
+    public int totalRemainingRent(SQLiteDatabase database)
+    {
+        int totalRamianing =0, idCounter=0, blockCounter =0;
+        int ID[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+        String BLOCK[] = {"A", "B", "C","D", "E", "F","G", "H", "I", "J"};
+
+        int idArr[]= new int[20];
+        String blockArr[]= new String[10];
+
+        String terms[]= new String[200];  // 200 possible combinations of ID and BLOCK
+
+        Cursor res = database.rawQuery( "SELECT ID,BLOCK FROM TENANT WHERE ID>0",null);
+
+        if(res== null)
+            return totalRamianing;
+
+        if (res.moveToFirst()){
+                do{
+                    String id = res.getString(res.getColumnIndex("ID"));  // getting all ids of tenats -- in database
+                    idArr[idCounter]= Integer.parseInt(id);
+                    idCounter++;
+
+                    String block = res.getString(res.getColumnIndex("BLOCK"));
+                    blockArr[blockCounter]= block;
+                    blockCounter++;
+                    Log.e("cursor_R", id+ block + blockCounter);
+                    // do what ever you want here
+                }while(res.moveToNext());
+            }
+            res.close();
+
+        int iCounter=0;
+        int bCounter=0;
+
+        while(iCounter<idCounter)
+        {
+            totalRamianing += remaining(idArr[iCounter],blockArr[bCounter],database);
+            Log.e("t_remaining", String.valueOf(totalRamianing));
+            iCounter++;
+            bCounter++;
+        }
+//        for(int idIndex=0; idIndex<20; idIndex++)
+//        {
+//            for(int blockIndex=0; blockIndex<10; blockIndex++)
+//            {
+//                totalRamianing += remaining(ID[idIndex],BLOCK[blockIndex],database);
+//            }
+//        }
+        Log.e("t_remaining", String.valueOf(totalRamianing));
+        return totalRamianing;
+    }
+
+    public int remaining(int id, String block, SQLiteDatabase database)
+    {
+        int advancePaid=0,khata=0,rent_paid=0,totalRent=0;
+
+        try {  // only exception will be NULL value from database .. so replacing NULL with int '0'
+            advancePaid = getAdvance(id, block, database);
+        }catch(Exception e){
+            advancePaid = 0;
+        }
+
+        try {
+            khata= getRecord(id, block, database);
+        }catch(Exception e){
+            khata = 0;
+        }
+
+        try {
+            rent_paid = rentPaid(id, block, database);
+        }catch(Exception e){
+            rent_paid = 0;
+        }
+
+        try {
+            totalRent = getRent(id, block, database);
+        }catch(Exception e){
+            totalRent = 0;
+        }
+
+        int totalPaid = advancePaid + khata + rent_paid;
+        int remainingRent = totalRent - totalPaid;
+        remainingRent = Math.abs(remainingRent);
+
+        Log.e("rent_remaining", String.valueOf(remainingRent));
+        return  remainingRent;
+    }
+
+    public int getMonthlyRecievedRent(SQLiteDatabase database)
+    {
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        String month = dateFormat.format(date);
+
+        int amount = 0;
+        // geting rent recieved
+        Cursor res = database.rawQuery( "SELECT SUM(RENTRECIEVED) FROM RENT WHERE DATE = ?", new String[] { month },null);
+        int rent_recieved=0;
+        if (res == null)
+        {
+            rent_recieved=0;
+        }
+        else {
+            try{
+                if (res.moveToFirst()) // Here i try to move to the first record -- in this case only record
+                    res.moveToFirst();
+                rent_recieved = Integer.parseInt(res.getString(0)); // Only assign string value if we moved to first record
+                Log.e("r_recieved", String.valueOf(rent_recieved));
+            }finally {
+                res.close();
+            }
+        }
+
+        // geting advance recieved
+        Cursor advanceQuery = database.rawQuery( "SELECT SUM(ADVANCE) FROM TENANT WHERE DATE = ?", new String[] { month },null);
+        int advance_recieved=0;
+        if (advanceQuery == null)
+        {
+            advance_recieved=0;
+        }
+        else {
+            try{
+                if (advanceQuery.moveToFirst()) // Here i try to move to the first record -- in this case only record
+                    advanceQuery.moveToFirst();
+                advance_recieved = Integer.parseInt(advanceQuery.getString(0)); // Only assign string value if we moved to first record
+                Log.e("a_recieved", String.valueOf(advance_recieved));
+            }finally {
+                res.close();
+            }
+        }
+
+        amount = rent_recieved+ advance_recieved;
+        Log.e("monthly_recieved", String.valueOf(amount));
+        return amount;
+    }
 }

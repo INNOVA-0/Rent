@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class dashboard extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton tenant, record, rent, expenses, history;
     private Button logout;
+    TextView mRecieved, mRemaining, tRecieved, tRemaining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,19 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
         history = findViewById(R.id.admin_history);
         logout = findViewById(R.id.admin_logout);
 
+        mRecieved=findViewById(R.id.monthlyRecieved);
+        mRemaining=findViewById(R.id.monthlyRemaining);
+        tRecieved=findViewById(R.id.totalRecieved);
+        tRemaining = findViewById(R.id.totalRemaining);
+
         tenant.setOnClickListener(this);
         record.setOnClickListener(this);
         rent.setOnClickListener(this);
         expenses.setOnClickListener(this);
         history.setOnClickListener(this);
         logout.setOnClickListener(this);
+
+        setStats();
 
 
     }
@@ -84,5 +93,34 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
                 break;
         }
 
+    }
+
+    public void setStats()
+    {
+        Helper helper;
+        SQLiteDatabase db;
+        // Database Configuration
+        helper= new Helper(this);
+        db = helper.getWritableDatabase();
+
+        // geting total rent paid -- all the time
+        int totalRent= helper.getTotalRecievedRent(db);
+        String value = String.valueOf(totalRent);
+        tRecieved.setText(value);
+
+        // geting total rent remaining -- all the time
+        int totalRemaining= helper.totalRemainingRent(db);
+        String remaining = String.valueOf(totalRemaining);
+        tRemaining.setText(remaining);
+
+        // geting mpnthly rent recieved -- all the time
+        int monthlyRecieved= helper.getMonthlyRecievedRent(db);
+        String m_recieved = String.valueOf(monthlyRecieved);
+        mRecieved.setText(m_recieved);
+
+        // geting mothly remaining rent -- all the time
+        int mRemaining= helper.getMonthlyRecievedRent(db);
+        String m_remaining = String.valueOf(monthlyRecieved);
+        mRecieved.setText(m_remaining);
     }
 }
