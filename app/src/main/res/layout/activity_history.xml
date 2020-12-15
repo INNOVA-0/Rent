@@ -84,7 +84,10 @@
 
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:id="@+id/radioAll"
+            />
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -103,6 +106,8 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:checked="false"
+            android:id="@+id/radioRemaining"
             />
        <Space
            android:layout_width="0dp"
@@ -119,7 +124,9 @@
             android:layout_weight="0.2"/>
         <RadioButton
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:id="@+id/radioSum"/>
     </RadioGroup>
 
 
@@ -188,6 +195,18 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:id="@+id/lvRecord"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/importData"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:id="@+id/btn_import"
+        android:background="@drawable/round_views"
+        android:textColor="#FFF"
+        android:layout_gravity="right"/>
 
 
 </LinearLayout>

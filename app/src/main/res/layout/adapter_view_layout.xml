@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="25"
-        android:text="5000"
+        android:text="No Data"
         android:textSize="15sp"
         android:id="@+id/lvRemaining"
         android:gravity="center"/>
@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="25"
-        android:text="120000"
+        android:text="No Data"
         android:textSize="15sp"
         android:id="@+id/lvRecieved"
         android:gravity="center"/>
@@ -26,14 +26,14 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="25"
-        android:text="125000"
+        android:text="No Data"
         android:textSize="15sp"
         android:gravity="center"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_weight="25"
-        android:text="عبد العزیز خان"
+        android:text="No Data"
         android:textSize="15sp"
         android:id="@+id/lvName"
         android:gravity="center_vertical|right"/>

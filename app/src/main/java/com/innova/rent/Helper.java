@@ -493,13 +493,6 @@ public class Helper extends SQLiteOpenHelper {
 
         int paidRent=0, advance =0;
 
-        int idArr[]= new int[20];
-        int rentArr[] = new int [200];
-        String blockArr[]= new String[10];
-        String nameArr[]= new String[200];  // total 200 unique possible combinations from ID and BLOCK
-
-        int idCounter=0, blockCounter =0, rentCounter=0, nameCounter=0;
-
         Cursor res = database.rawQuery( "SELECT ID,BLOCK,NAME,RENT FROM TENANT WHERE ID>0",null);
 
         if(res== null)
@@ -510,21 +503,16 @@ public class Helper extends SQLiteOpenHelper {
                 TenantStats tenant = new TenantStats();
 
                 String id = res.getString(res.getColumnIndex("ID"));  // getting all ids of tenats -- in database
-                idArr[idCounter]= Integer.parseInt(id);
-
 
                 String block = res.getString(res.getColumnIndex("BLOCK"));  // setting remaining rent for object
-                blockArr[blockCounter]= block;
                 tenant.setRemainingRent(remaining(Integer.parseInt(id),block,database));
 
 
                 String name = res.getString(res.getColumnIndex("NAME"));    // setting name of object
-                nameArr[nameCounter]= name;
                 tenant.setName(name);
 
 
                 String rent = res.getString(res.getColumnIndex("RENT"));    // setting total rent for object
-                rentArr[rentCounter]= Integer.parseInt(rent);
                 tenant.setRent(Integer.parseInt(rent));
 
                 try {
@@ -539,18 +527,12 @@ public class Helper extends SQLiteOpenHelper {
                     advance = 0;
                 }
 
-
                 int totalPaid = paidRent + advance;
                 tenant.setRecievedRent(totalPaid);                                       // setting totalPaid rent for object
 
                 tenantList.add(tenant);
 
-
-                Log.e("cursor_R", id+ block + blockCounter);
-                idCounter++;
-                blockCounter++;
-                nameCounter++;
-                rentCounter++;
+                Log.e("cursor_R", id+ block);
 
             }while(res.moveToNext());
         }

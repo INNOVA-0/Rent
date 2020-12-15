@@ -39,7 +39,9 @@
     <string name="sum">جمع</string>
     <string name="remains">بقایا</string>
     <string name="all">سب</string>
+    <string name="importData">برآمد کریں</string>
     <string name="recieved">موصول </string>
+
 
 
     <string-array name="id">
