@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".managerDashboard"></activity>
+        <activity android:name=".history"></activity>
+        <activity android:name=".managerDashboard" />
         <activity android:name=".expenditure" />
         <activity android:name=".rent" />
         <activity android:name=".record" />

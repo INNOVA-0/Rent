@@ -75,10 +75,9 @@ public class managerDashboard extends AppCompatActivity  implements View.OnClick
 
             case R.id.managerHistory:
                 isManager=true;
-//                Intent historyIntent = new Intent(getApplicationContext(), history.class);
-//                historyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(historyIntent);
-                Toast.makeText(this, "History Layout will be inflated", Toast.LENGTH_SHORT).show();
+                Intent historyIntent = new Intent(getApplicationContext(), history.class);
+                historyIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(historyIntent);
                 break;
 
             case R.id.managerLogout:
