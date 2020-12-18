@@ -44,7 +44,7 @@ public class history extends AppCompatActivity {
     managerDashboard manager;
     private static boolean adminIntent=true;  // required to decide wether to go back to admin or manager dashboard
 
-    public static boolean isAll=false;
+    public static boolean isAll=true;
     public static boolean isSum=false;
     public static boolean isRemaining=false;
 
@@ -77,18 +77,25 @@ public class history extends AppCompatActivity {
                         isAll = true;
                         isRemaining=false;
                         isSum = false;
+//                        Toast.makeText(history.this, "All Selected", Toast.LENGTH_SHORT).show();
+                        TenantStatsListAdapter adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        tenantListView.setAdapter(adapter);
                         break;
 
                     case R.id.radioRemaining:
                         isRemaining=true;
                         isAll = false;
                         isSum = false;
+                        TenantStatsListAdapter rem_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        tenantListView.setAdapter(rem_adapter);
                         break;
 
                     case R.id.radioSum:
                         isSum = true;
                         isAll = false;
                         isRemaining=false;
+                        TenantStatsListAdapter sum_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        tenantListView.setAdapter(sum_adapter);
                         break;
                 }
             }

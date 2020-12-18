@@ -90,7 +90,7 @@ public class rent extends AppCompatActivity implements AdapterView.OnItemSelecte
                     fetchData();
                     Intent backAdminDashboard = new Intent(getApplicationContext(), dashboard.class);
                     backAdminDashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //startActivity(backAdminDashboard);
+                    startActivity(backAdminDashboard);
                 }
                 else if(adminIntent== false)
                 {
@@ -118,6 +118,7 @@ public class rent extends AppCompatActivity implements AdapterView.OnItemSelecte
 //            Log.d("in update ui", "role is manager");
             avatar.setImageResource(R.drawable.manager);
             role.setText(getResources().getText(R.string.manager));
+            adminIntent=false;
             manager.isManager= false;
 //            Log.d("in update ui", String.valueOf(manager.isManager));
         }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +48,51 @@ public class TenantStatsListAdapter extends ArrayAdapter<TenantStats> {
             TextView RecievedRent =  convertView.findViewById(R.id.lvRecieved);
             TextView RemainingRent =  convertView.findViewById(R.id.lvRemaining);
 
-            Name.setText(name);
-            Rent.setText(Integer.toString(rent));
-            RecievedRent.setText(Integer.toString(recievedRent));
-            RemainingRent.setText(Integer.toString(remainingRent));
+
+             if (recievedRent==0)
+            {
+                Name.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                Rent.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+            }
+            else {
+
+                 if(remainingRent == 0)  // setting color of data imported in list view
+                 {
+                     Name.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+                     Rent.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+                     RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+                     RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.green));
+                 }
+
+                Name.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                Rent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+            }
+
+
+            if(history.isAll)
+            {
+                Name.setText(name);
+                Rent.setText(Integer.toString(rent));
+                RecievedRent.setText(Integer.toString(recievedRent));
+                RemainingRent.setText(Integer.toString(remainingRent));
+                return convertView;
+            }
+            else if(history.isRemaining)
+            {
+                Name.setText(name);
+                RemainingRent.setText(Integer.toString(remainingRent));
+                return convertView;
+            }
+            else if(history.isSum)
+            {
+                Name.setText(name);
+                RecievedRent.setText(Integer.toString(recievedRent));
+                return convertView;
+            }
 
         return convertView;
     }

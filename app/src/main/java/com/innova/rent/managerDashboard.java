@@ -2,6 +2,7 @@ package com.innova.rent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ public class managerDashboard extends AppCompatActivity  implements View.OnClick
     ImageButton record, rent, expenses, history;
     private Button logout;
     TextView mRentPaid, mRentRemaining;
+
+    private Session session;
+    Context cntx = this;
 
     static boolean isManager=false; // distinguish between logged in user roles
 
@@ -81,8 +85,12 @@ public class managerDashboard extends AppCompatActivity  implements View.OnClick
                 break;
 
             case R.id.managerLogout:
+
+                session = new Session(cntx);
+                session.setRole("null");
+
                 Intent logoutIntent = new Intent(getApplicationContext(), MainActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(logoutIntent);
                 Toast.makeText(this, "Logged Out!", Toast.LENGTH_SHORT).show();
                 break;

@@ -2,6 +2,7 @@ package com.innova.rent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
     ImageButton tenant, record, rent, expenses, history;
     private Button logout;
     TextView mRecieved, mRemaining, tRecieved, tRemaining;
+
+    private Session session;
+    Context cntx = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +86,12 @@ public class dashboard extends AppCompatActivity implements View.OnClickListener
                 break;
 
             case R.id.admin_logout:
+                // sesion managment- removing user from shared Preferences.
+                session = new Session(cntx);
+                session.setRole("null");
+
                 Intent logoutIntent = new Intent(getApplicationContext(), MainActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(logoutIntent);
                 Toast.makeText(this, "Logged Out!", Toast.LENGTH_SHORT).show();
                 break;
