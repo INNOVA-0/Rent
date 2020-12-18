@@ -140,12 +140,15 @@ public class rent extends AppCompatActivity implements AdapterView.OnItemSelecte
         if(adapterView.getId() == R.id.rentId)
         {
             idSelected= adapterView.getItemAtPosition(i).toString();
+            setStats();
+            setName();
         }
 
         if(adapterView.getId() == R.id.rentBlock)
         {
             blockSelected = adapterView.getItemAtPosition(i).toString();
             setStats();
+            setName();
         }
 
     }
@@ -195,6 +198,21 @@ public class rent extends AppCompatActivity implements AdapterView.OnItemSelecte
             Log.e("e_r", String.valueOf(e));
             String rent_value = String.valueOf(0);
             rentRemaining.setText(rent_value);
+        }
+    }
+
+    public void setName()
+    {
+        String tenat_name;
+        // Setting name of tenant
+        try {
+            int id = Integer.parseInt(idSelected);
+            tenat_name = helper.getName(id,blockSelected,db);
+            name.setText(tenat_name);
+
+        }catch(Exception e){
+//            Toast.makeText(this, "No Record Avaliable!", Toast.LENGTH_SHORT).show();
+            name.setText("");
         }
     }
 }

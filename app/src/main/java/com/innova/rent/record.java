@@ -131,12 +131,14 @@ public class record extends AppCompatActivity implements AdapterView.OnItemSelec
         if(adapterView.getId() == R.id.idSelectorR)
         {
             idSelected= adapterView.getItemAtPosition(i).toString();
+            setName();
 //            Toast.makeText(record.this, "id selected"+ idSelected, Toast.LENGTH_SHORT).show();
         }
 
         if(adapterView.getId() == R.id.blockSelectorR)
         {
             blockSelected = adapterView.getItemAtPosition(i).toString();
+            setName();
         }
 
     }
@@ -144,5 +146,20 @@ public class record extends AppCompatActivity implements AdapterView.OnItemSelec
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void setName()
+    {
+        String tenat_name;
+        // Setting name of tenant
+        try {
+            int id = Integer.parseInt(idSelected);
+            tenat_name = helper.getName(id,blockSelected,db);
+            name.setText(tenat_name);
+
+        }catch(Exception e){
+//            Toast.makeText(this, "No Record Avaliable!", Toast.LENGTH_SHORT).show();
+            name.setText("");
+        }
     }
 }

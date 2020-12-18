@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         session = new Session(cntx); //in oncreate
         if (session.getRole().isEmpty() || session.getRole().equals("null"))
         {
-            Toast.makeText(cntx, "Logging in for first time", Toast.LENGTH_SHORT).show();
+
         }
         else if (Objects.equals(session.getRole(), "admin"))
         {

@@ -541,4 +541,20 @@ public class Helper extends SQLiteOpenHelper {
         return tenantList;
 
     }
+
+    public String getName(int id, String block, SQLiteDatabase database) {
+        Cursor res = database.rawQuery( "SELECT NAME FROM TENANT WHERE ID = ? AND BLOCK =?", new String[] {String.valueOf(id), block},null);
+        String name = "";
+        if (res == null)
+            return name;
+        try{
+            if (res.moveToFirst())
+                res.moveToFirst();
+            name = res.getString(0);
+        }finally {
+            res.close();
+        }
+
+        return name;
+    }
 }
