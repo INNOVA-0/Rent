@@ -135,6 +135,7 @@ public class tenant extends AppCompatActivity implements AdapterView.OnItemSelec
 //            Toast.makeText(this, "No Record Avaliable!", Toast.LENGTH_SHORT).show();
             name.setText("");
             advanceAmount.setText("");
+            rentAmount.setText("");
         }
     }
 

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,15 +16,18 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TenantStatsListAdapter extends ArrayAdapter<TenantStats> {
+public class TenantStatsListAdapter extends ArrayAdapter<TenantStats> implements Filterable {
     private Context mContext;
     int mResource;
+
+
 
     public TenantStatsListAdapter(@NonNull Context context, int resource, @NonNull ArrayList<TenantStats> objects) {
         super(context, resource, objects);
         mContext = context;
         mResource = resource;
     }
+
 
     @NonNull
     @Override
@@ -48,6 +53,10 @@ public class TenantStatsListAdapter extends ArrayAdapter<TenantStats> {
             TextView RecievedRent =  convertView.findViewById(R.id.lvRecieved);
             TextView RemainingRent =  convertView.findViewById(R.id.lvRemaining);
 
+            Name.setText(name);
+            Rent.setText(Integer.toString(rent));
+            RecievedRent.setText(Integer.toString(recievedRent));
+            RemainingRent.setText(Integer.toString(remainingRent));
 
              if (recievedRent==0)
             {
@@ -65,34 +74,39 @@ public class TenantStatsListAdapter extends ArrayAdapter<TenantStats> {
                      RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.green));
                      RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.green));
                  }
-
-                Name.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
-                Rent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
-                RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
-                RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                 else{
+                     Name.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                     Rent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                     RecievedRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                     RemainingRent.setTextColor(ContextCompat.getColor(mContext, R.color.blue));
+                 }
             }
 
-
-            if(history.isAll)
-            {
-                Name.setText(name);
-                Rent.setText(Integer.toString(rent));
-                RecievedRent.setText(Integer.toString(recievedRent));
-                RemainingRent.setText(Integer.toString(remainingRent));
-                return convertView;
-            }
-            else if(history.isRemaining)
-            {
-                Name.setText(name);
-                RemainingRent.setText(Integer.toString(remainingRent));
-                return convertView;
-            }
-            else if(history.isSum)
-            {
-                Name.setText(name);
-                RecievedRent.setText(Integer.toString(recievedRent));
-                return convertView;
-            }
+//
+//            if(history.isAll)
+//            {
+//                Name.setText(name);
+//                Rent.setText(Integer.toString(rent));
+//                RecievedRent.setText(Integer.toString(recievedRent));
+//                RemainingRent.setText(Integer.toString(remainingRent));
+//                return convertView;
+//            }
+//            else if(history.isRemaining && remainingRent > 0) // baqaya filter
+//            {
+//                Name.setText(name);
+//                Rent.setText(Integer.toString(rent));
+//                RecievedRent.setText(Integer.toString(recievedRent));
+//                RemainingRent.setText(Integer.toString(remainingRent));
+//                return convertView;
+//            }
+//            else if(history.isSum  && remainingRent == 0)  // jama filter
+//            {
+//                Name.setText(name);
+//                Rent.setText(Integer.toString(rent));
+//                RecievedRent.setText(Integer.toString(recievedRent));
+//                RemainingRent.setText(Integer.toString(remainingRent));
+//                return convertView;
+//            }
 
         return convertView;
     }

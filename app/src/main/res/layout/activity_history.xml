@@ -51,6 +51,7 @@
         android:textSize="21sp"
         android:gravity="center"
         android:text="@string/date"/>
+
     <SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"

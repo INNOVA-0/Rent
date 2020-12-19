@@ -487,7 +487,7 @@ public class Helper extends SQLiteOpenHelper {
         return totalRamianing;
     }
 
-    public ArrayList<TenantStats> getTenantStats(SQLiteDatabase database)
+    public ArrayList<TenantStats> getTenantStats(SQLiteDatabase database, int selection)
     {
         ArrayList<TenantStats> tenantList = new ArrayList<>();
 
@@ -538,6 +538,11 @@ public class Helper extends SQLiteOpenHelper {
         }
         res.close();
 
+        if(selection == 0)
+            return tenantList;
+
+        tenantList = filterTenant(tenantList,selection);
+
         return tenantList;
 
     }
@@ -557,4 +562,28 @@ public class Helper extends SQLiteOpenHelper {
 
         return name;
     }
+
+    public ArrayList<TenantStats> filterTenant(ArrayList<TenantStats> tenants, int selection)
+    {
+        // 0 is ALL, 1 -> isremaining, 2 -> is sum
+
+        for (int items = 0 ; items < tenants.size(); items++)
+        {
+            TenantStats tenant= tenants.get(items);
+            int remainingRent=tenant.getRemainingRent();
+            int rentPaid = tenant.getRecievedRent();
+
+            if(selection == 1 && !(remainingRent > 0))
+            {
+                tenants.remove(items);
+            }
+            else if (selection == 2 && !(remainingRent == 0))
+            {
+                tenants.remove(items);
+            }
+        }
+
+        return tenants;
+    }
+
 }

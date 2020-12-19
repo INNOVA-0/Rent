@@ -15,11 +15,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,9 +33,12 @@ import java.util.ArrayList;
 public class history extends AppCompatActivity {
 
     ArrayList<TenantStats> tenantList;
+    ArrayList<TenantStats> tenants;
     ArrayList<String> listDataArray;
+    TenantStatsListAdapter adapter;
 
     ListView tenantListView;
+    android.widget.SearchView searchBar;
     Helper helper;
     SQLiteDatabase db;
     ImageView avatar;
@@ -54,6 +59,7 @@ public class history extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+
         manager= new managerDashboard();
         // inflating UI components
         avatar= findViewById(R.id.historyAvatar);
@@ -61,6 +67,8 @@ public class history extends AppCompatActivity {
         tenantListView = findViewById(R.id.lvRecord);
         selection = findViewById(R.id.radioOptions);
         export= findViewById(R.id.btn_import);
+        searchBar = findViewById(R.id.search);
+
 
         // Database Configuration
         helper= new Helper(this);
@@ -78,30 +86,33 @@ public class history extends AppCompatActivity {
                         isRemaining=false;
                         isSum = false;
 //                        Toast.makeText(history.this, "All Selected", Toast.LENGTH_SHORT).show();
-                        TenantStatsListAdapter adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        TenantStatsListAdapter adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db,0));
                         tenantListView.setAdapter(adapter);
+
                         break;
 
                     case R.id.radioRemaining:
                         isRemaining=true;
                         isAll = false;
                         isSum = false;
-                        TenantStatsListAdapter rem_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        TenantStatsListAdapter rem_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db,1));
                         tenantListView.setAdapter(rem_adapter);
+
                         break;
 
                     case R.id.radioSum:
                         isSum = true;
                         isAll = false;
                         isRemaining=false;
-                        TenantStatsListAdapter sum_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+                        TenantStatsListAdapter sum_adapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,helper.getTenantStats(db,2));
                         tenantListView.setAdapter(sum_adapter);
+
                         break;
                 }
             }
         });
 
-        tenantList= helper.getTenantStats(db);
+        tenantList= helper.getTenantStats(db,0);
         listDataArray = new ArrayList<>();
         String names = "NAME;RENT;RECIEVED;REMAINING";
         listDataArray.add(names);
@@ -119,8 +130,11 @@ public class history extends AppCompatActivity {
             listDataArray.add(concatenated_data);
         }
 
-        TenantStatsListAdapter adapter = new TenantStatsListAdapter(this,R.layout.adapter_view_layout,helper.getTenantStats(db));
+        tenants = helper.getTenantStats(db,0);
+        adapter = new TenantStatsListAdapter(this,R.layout.adapter_view_layout,tenants);
         tenantListView.setAdapter(adapter);
+        initSearchView();
+
 
         export.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,5 +239,31 @@ public class history extends AppCompatActivity {
         }
     }
 
+    public void initSearchView()
+    {
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                history.this.adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<TenantStats> filteredTenatns = new ArrayList<TenantStats>();
+
+                for (TenantStats tenant: tenants)
+                {
+                    if(tenant.getName().toLowerCase().contains(newText.toLowerCase()))
+                    {
+                        filteredTenatns.add(tenant);
+                    }
+                }
+                TenantStatsListAdapter filteredAdapter = new TenantStatsListAdapter(history.this,R.layout.adapter_view_layout,filteredTenatns);
+                tenantListView.setAdapter(filteredAdapter);
+                return false;
+            }
+        });
+    }
 }
 
