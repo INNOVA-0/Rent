@@ -586,4 +586,69 @@ public class Helper extends SQLiteOpenHelper {
         return tenants;
     }
 
+
+    public ArrayList<TenantStats> getTenantStatsAll(SQLiteDatabase database, int selection)
+    {
+        ArrayList<TenantStats> tenantList = new ArrayList<>();
+
+        int paidRent=0, advance =0;
+
+        Cursor res = database.rawQuery( "SELECT ID,BLOCK,NAME,RENT,DATE FROM TENANT WHERE ID>0",null);
+
+        if(res== null)
+            return tenantList;
+
+        if (res.moveToFirst()){
+            do{
+                TenantStats tenant = new TenantStats();
+
+                String id = res.getString(res.getColumnIndex("ID"));  // getting all ids of tenats -- in database
+                tenant.setID(Integer.parseInt(id));
+
+                String block = res.getString(res.getColumnIndex("BLOCK"));  // setting remaining rent for object
+                tenant.setRemainingRent(remaining(Integer.parseInt(id),block,database));
+                tenant.setBlock(block);
+
+                String name = res.getString(res.getColumnIndex("NAME"));    // setting name of object
+                tenant.setName(name);
+
+
+                String rent = res.getString(res.getColumnIndex("RENT"));    // setting total rent for object
+                tenant.setRent(Integer.parseInt(rent));
+
+                String date = res.getString(res.getColumnIndex("DATE"));    // setting total rent for object
+                tenant.setRent(Integer.parseInt(date));
+
+                try {
+                    paidRent = rentPaid(Integer.parseInt(id),block,database);
+                }catch(Exception e) {
+                    paidRent = 0;
+                }
+
+                try {
+                    advance = getAdvance(Integer.parseInt(id),block,database);
+                }catch(Exception e) {
+                    advance = 0;
+                }
+
+                int totalPaid = paidRent + advance;
+                tenant.setRecievedRent(totalPaid);                                       // setting totalPaid rent for object
+
+                tenantList.add(tenant);
+
+                Log.e("cursor_R", id+ block);
+
+            }while(res.moveToNext());
+        }
+        res.close();
+
+        if(selection == 0)
+            return tenantList;
+
+        tenantList = filterTenant(tenantList,selection);
+
+        return tenantList;
+
+    }
+
 }

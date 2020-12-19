@@ -130,7 +130,7 @@ public class history extends AppCompatActivity {
             listDataArray.add(concatenated_data);
         }
 
-        tenants = helper.getTenantStats(db,0);
+        tenants = helper.getTenantStatsAll(db,0);
         adapter = new TenantStatsListAdapter(this,R.layout.adapter_view_layout,tenants);
         tenantListView.setAdapter(adapter);
         initSearchView();
@@ -244,7 +244,7 @@ public class history extends AppCompatActivity {
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                history.this.adapter.getFilter().filter(query);
+//                history.this.adapter.getFilter().filter(query);
                 return false;
             }
 
@@ -255,6 +255,20 @@ public class history extends AppCompatActivity {
                 for (TenantStats tenant: tenants)
                 {
                     if(tenant.getName().toLowerCase().contains(newText.toLowerCase()))
+                    {
+                        filteredTenatns.add(tenant);
+                    }
+                    if (tenant.getBlock().equals(newText))
+                    {
+                        filteredTenatns.add(tenant);
+                    }
+                     if (String.valueOf(tenant.getID()).equals(newText))
+                    {
+                        filteredTenatns.add(tenant);
+                    }
+                    String id_block = String.valueOf(tenant.getID()) + tenant.getBlock();
+
+                    if (id_block.equals(newText))
                     {
                         filteredTenatns.add(tenant);
                     }
